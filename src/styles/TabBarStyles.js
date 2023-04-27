@@ -13,8 +13,8 @@ const styles = (focused) => StyleSheet.create({
     tabBarIcon1: {
         alignItems: 'center',
         justifyContent: 'center',
-        height: '120%',
-        width: '90%',
+        height: '130%',
+        width: '65%',
         marginBottom: '25%',
         backgroundColor: colors.mainHome,
         borderRadius: 200
@@ -25,8 +25,8 @@ const styles = (focused) => StyleSheet.create({
         tintColor: focused ? colors.dark : colors.main
     },
     icon1: {
-        width: 30,
-        height: 30,
+        width: 45,
+        height: 45,
         tintColor: focused ? colors.dark : colors.text
     },
     text: {

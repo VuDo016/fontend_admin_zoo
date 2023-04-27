@@ -1,57 +1,96 @@
 import { StyleSheet } from "react-native";
+import {Dimensions} from 'react-native';
 
 import colors from "../../assets/colors/colors";
 
+const screenHeight  = Dimensions.get('screen').height;
 
-const styles= (btn) => StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#83d804'
+        height: screenHeight,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 20,
+        backgroundColor: '#fff',
     },
-    imageBackground: {
-        height: '100%',
+    backButton: {
+        marginBottom: '25%'
+    },
+    backButtonIcon: {
+        height: 40,
+        width: 40
+    },
+    input: {
         width: '100%',
-        alignItems: 'center'
+        height: 60,
+        borderColor: '#ccc',
+        borderWidth: 1,
+        borderRadius: 5,
+        paddingHorizontal: 10,
+        marginBottom: 20,
+        fontSize: 16
     },
-    text: {
-        fontSize: 33,
-        color: colors.main,
-        fontFamily: 'vinque rg',
-        marginTop: '10%'
+    rememberMeContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 20,
     },
-    viewBtn: {
+    rememberMeLabel: {
+        marginLeft: 10,
+        fontSize: 16
+    },
+    button: {
+        marginTop: '10%',
         height: '8%',
-        width: '80%',
-        backgroundColor: btn ? colors.dark : '',
+        width: '100%',
+        backgroundColor: colors.dark,
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        position: 'absolute',
-        bottom: btn ? '10%' : '1%',
     },
-    textBtn: {
+    buttonText: {
+        color: '#fff',
         fontSize: 20,
         fontWeight: 'bold',
-        color: btn ? colors.text : colors.dark,
     },
     viewMid: {
         flexDirection: 'row',
-        marginTop: '5%',
-        width: '70%',
-        justifyContent: 'space-between'
+        width: '100%',
+        justifyContent: 'space-between',
+        position: 'absolute',
+        left: '7%',
+        top: '5%'
     },
-    image: {
-        height: 50,
-        width: 50
+    imageLogo: {
+        height: 150,
+        width: 150
     },
-    textMid: {
-        color: colors.text,
+    textTitle: {
+        fontSize: 30,
+        color: colors.dark,
+        fontWeight: 'bold'
+    },
+    textTitle1: {
         fontSize: 20,
-        fontWeight: '600'
+        color: colors.mainDark
     },
-    viewItem: {
-        justifyContent: 'center',
-        alignItems: 'center'
+    textBottom: {
+        fontSize: 17,
+        color: colors.mainHome,
+        fontWeight: '500'
+    },
+    textBottom1: {
+        fontSize: 17,
+        color: colors.greenDark
+    },
+    viewBtnText: {
+        position: 'absolute',
+        bottom: '15%'
+    },
+    viewBtnText1: {
+        flexDirection: 'row',
+        position: 'absolute',
+        bottom: '10%'
     }
 })
 
