@@ -1,7 +1,6 @@
 import { View, Text, Image, FlatList, ScrollView, TouchableOpacity } from 'react-native'
 import React, { Component } from 'react'
 import { LineChart } from "react-native-chart-kit";
-import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 
 import styles from '../../styles/Ticket'
 import colors from '../../../assets/colors/colors'
@@ -159,7 +158,7 @@ export default class Ticket extends Component {
                         <Text>{item.numTicket}</Text>
                       </View>
                       <View style={styles.viewRowHis1}>
-                        <Image style={styles.iconHis} source={require('../../../assets/images/Ticket/ticket.png')} />
+                        <Image style={styles.iconHis1} source={require('../../../assets/images/Ticket/rent.png')} />
                         <Text>{item.numTicket}</Text>
                       </View>
                     </View>

@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     },
     viewInfoHis: {
         height: '75%',
-        width: '40%',
+        width: '55%',
         justifyContent: 'space-between'
     },
     textNameHis: {
@@ -133,16 +133,150 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        width: '30%'
+        width: '40%'
     },
     iconHis: {
         height: 20,
         width: 20
     },
+    iconHis1: {
+        height: 25,
+        width: 25
+    },
     iconArrowHis: {
         height: '30%',
         width: '5%'
-    }
+    },
+    //////////////Manager Sale Ticket ///////////////////
+    containerManager: {
+        height: screenHeight / 8,
+        width: '47%',
+        backgroundColor: colors.text,
+        marginVertical: '1%',
+        marginLeft: '2%',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        borderRadius: 10,
+        paddingHorizontal: '2%'
+    },
+    itemManager: {
+        flexDirection: 'row',
+        height: '60%',
+        width: '100%',
+        alignItems: 'center'
+    },
+    itemManager1: {
+        flexDirection: 'row',
+        height: '40%',
+        width: '100%',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    textNameManager: {
+        fontSize: 17,
+        fontWeight: 'bold',
+        color: colors.greenDark
+    },
+    viewAvatarManager: {
+        height: '70%',
+        width: '25%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 200,
+        marginRight: '10%',
+        backgroundColor: colors.greenLight
+    },
+    avatarManager : {
+        height: '100%',
+        width: '100%'
+    },
+    iconManager: {
+        height: 15,
+        width: 15
+    },
+    iconManager1: {
+        height: 20,
+        width: 20
+    },
+    viewRowManager: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '80%'
+    },
+    viewRowManager1: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '40%'
+    },
+    textPriceManager: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: colors.black
+    },
+    iconArrowManager: {
+        height: '35%',
+        width: '10%'
+    },
+    iconArrowManager1: {
+        height: '25%',
+        width: '10%',
+        position: 'absolute',
+        right: '5%',
+        top: '5%'
+    },
+    ///////////////////
+    containerManager1: {
+        height: screenHeight / 13,
+        width: '95%',
+        flexDirection: 'row',
+        backgroundColor: colors.text,
+        marginVertical: '2%',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        borderRadius: 10,
+        paddingHorizontal: '2%',
+        marginLeft: '2%'
+    },
+    viewAvatarManager1: {
+        height: '65%',
+        width: '10%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 200,
+        backgroundColor: colors.greenLight
+    },
+    avatarManager1 : {
+        height: '100%',
+        width: '100%'
+    },
+    viewTextManager1: {
+        height: '100%',
+        width: '25%',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    textNameManager1: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: colors.greenDark
+    },
+    textPriceManager1: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: colors.black
+    },
+    viewRowManager2: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '10%'
+    },
+    iconArrowManager2: {
+        height: '25%',
+        width: '5%'
+    },
 })
 
 export default styles
