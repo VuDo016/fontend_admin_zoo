@@ -7,6 +7,7 @@ import TabBar from './components/TabBar';
 import TicketManager from './screens/Other/Staff/TicketManager';
 import EventManager from './screens/Other/Staff/EventManager';
 import ProfileStaff from './screens/Other/Staff/ProfileStaff';
+import ScanQRcode from './screens/Main/ScanQRcode';
 
 const stack = createNativeStackNavigator();
 
@@ -26,6 +27,7 @@ export default class Main extends Component {
         <stack.Screen name="TicketManager" component={TicketManager} />
         <stack.Screen name="EventManager" component={EventManager} />
         <stack.Screen name="ProfileStaff" component={ProfileStaff} />
+        <stack.Screen name="ScanQRcode" component={ScanQRcode} />
       </stack.Navigator>
     </NavigationContainer>
     )

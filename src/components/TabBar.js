@@ -66,7 +66,7 @@ export default class TabBar extends Component {
           name="Ticket"
           options={{
             tabBarIcon: ({ focused }) => (
-              <TouchableOpacity style={styles(focused).tabBarIcon1} onPress={() => navigation.navigate('BuyTicketScreen')}>
+              <TouchableOpacity style={styles(focused).tabBarIcon1} onPress={() => navigation.navigate('ScanQRcode')}>
                 <Image
                   source={require('../../assets/images/Main/qrcode.png')}
                   resizeMode='contain'
