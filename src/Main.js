@@ -8,6 +8,8 @@ import TicketManager from './screens/Other/Staff/TicketManager';
 import EventManager from './screens/Other/Staff/EventManager';
 import ProfileStaff from './screens/Other/Staff/ProfileStaff';
 import ScanQRcode from './screens/Main/ScanQRcode';
+import ChatWithCus from './screens/Other/Customer/ChatWithCus';
+import TicketsPaidScreen from './screens/Other/Customer/TicketsPaidScreen';
 
 const stack = createNativeStackNavigator();
 
@@ -28,6 +30,8 @@ export default class Main extends Component {
         <stack.Screen name="EventManager" component={EventManager} />
         <stack.Screen name="ProfileStaff" component={ProfileStaff} />
         <stack.Screen name="ScanQRcode" component={ScanQRcode} />
+        <stack.Screen name="ChatWithCus" component={ChatWithCus} />
+        <stack.Screen name="TicketsPaidScreen" component={TicketsPaidScreen} />
       </stack.Navigator>
     </NavigationContainer>
     )

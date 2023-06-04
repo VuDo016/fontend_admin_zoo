@@ -3,6 +3,7 @@ import {Dimensions} from 'react-native';
 
 import colors from "../../assets/colors/colors";
 const screenHeight  = Dimensions.get('screen').height;
+const screenWidth  = Dimensions.get('screen').width;
 
 const styles = (focused) => StyleSheet.create({
     /////tabBar////
@@ -13,9 +14,19 @@ const styles = (focused) => StyleSheet.create({
     tabBarIcon1: {
         alignItems: 'center',
         justifyContent: 'center',
-        height: '130%',
-        width: '65%',
+        height: screenWidth / 4,
+        width: screenWidth / 4,
         marginBottom: '25%',
+        backgroundColor: colors.text,
+        borderRadius: 200,
+        borderWidth: 1, 
+        borderColor: colors.mainHome
+    },
+    tabBarIcon2: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '90%',
+        width: '90%',
         backgroundColor: colors.mainHome,
         borderRadius: 200
     },
@@ -25,8 +36,8 @@ const styles = (focused) => StyleSheet.create({
         tintColor: focused ? colors.dark : colors.main
     },
     icon1: {
-        width: 45,
-        height: 45,
+        width: '50%',
+        height: '50%',
         tintColor: focused ? colors.dark : colors.text
     },
     text: {

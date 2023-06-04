@@ -15,10 +15,10 @@ export default class Home extends Component {
     ]
 
     const customer = [
-      { id: '1', title: 'Tài khoản khách hàng', icon: require('../../../assets/images/Main/account.png') },
-      { id: '2', title: 'Bình luận từ khách hàng', icon: require('../../../assets/images/Main/comment.png') },
-      { id: '3', title: 'Hỗ trợ khách hàng', icon: require('../../../assets/images/Main/support.png') },
-      { id: '4', title: 'Quỹ quyên góp', icon: require('../../../assets/images/Main/donation.png') }
+      { id: '1', title: 'Tài khoản khách hàng', icon: require('../../../assets/images/Main/account.png'), screen: 'ChatWithCus' },
+      { id: '2', title: 'Bình luận từ khách hàng', icon: require('../../../assets/images/Main/comment.png'), screen: 'ChatWithCus' },
+      { id: '3', title: 'Hỗ trợ khách hàng', icon: require('../../../assets/images/Main/support.png'), screen: 'ChatWithCus' },
+      { id: '4', title: 'Quỹ quyên góp', icon: require('../../../assets/images/Main/donation.png'), screen: 'ChatWithCus' }
     ]
 
     return (
@@ -70,7 +70,7 @@ export default class Home extends Component {
             <Text style={styles.textTitleItem}>Khách hàng </Text>
             {
               customer.map((item) => (
-                <TouchableOpacity style={styles.viewFoot} key={item.id}>
+                <TouchableOpacity style={styles.viewFoot} key={item.id} onPress={() => navigation.navigate(item.screen)}>
                   <Image style={styles.imgFoot} source={item.icon} />
                   <Text style={styles.textFoot}>{item.title}</Text>
                   <Image style={styles.arrowFoot} source={require('../../../assets/images/arrowRight.png')}/>

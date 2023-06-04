@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     item2: {
         flexDirection: 'row',
         height: '50%',
-        width: '100%',
+        width: 'auto',
         justifyContent: 'space-between',
         alignItems: 'center'
     },
@@ -72,7 +72,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderColor: colors.main,
-        backgroundColor: colors.text
+        backgroundColor: colors.text,
+        marginHorizontal: '2%'
     },
     textBtn2: {
         fontSize: 15,

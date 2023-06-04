@@ -1,15 +1,21 @@
-import { View, Text, Image, FlatList, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, Image, FlatList, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native'
 import React, { Component } from 'react'
 import { LineChart } from "react-native-chart-kit";
 
 import styles from '../../styles/Ticket'
 import colors from '../../../assets/colors/colors'
 
+import { getBillTenLast, getDataChart, getStatistical } from '../../../api/service/ticket';
+
 export default class Ticket extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentDate: ''
+      currentDate: '',
+      statistical: '',
+      billTenLast: '',
+      dataChart: '',
+      isLoading: true
     };
   }
 
@@ -17,37 +23,78 @@ export default class Ticket extends Component {
     this.getCurrentDate();
   }
 
-  getCurrentDate() {
-    const date = new Date().getDate(); // Lấy ngày
-    const month = new Date().getMonth() + 1; // Lấy tháng (bắt đầu từ 0)
-    const year = new Date().getFullYear(); // Lấy năm
-    const hours = new Date().getHours(); // Lấy giờ
-    const minutes = new Date().getMinutes(); // Lấy phút
+  async getCurrentDate() {
+    try {
+      const date = new Date().getDate(); // Lấy ngày
+      const month = new Date().getMonth() + 1; // Lấy tháng (bắt đầu từ 0)
+      const year = new Date().getFullYear(); // Lấy năm
+      const hours = new Date().getHours(); // Lấy giờ
+      const minutes = new Date().getMinutes(); // Lấy phút
 
-    // Hiển thị ngày giờ dưới dạng chuỗi
-    this.setState({
-      currentDate:
-        date + '/' + month + '/' + year + ' ' + hours + ':' + minutes
+      // Hiển thị ngày giờ dưới dạng chuỗi
+      this.setState({
+        currentDate:
+          date + '/' + month + '/' + year + ' ' + hours + ':' + minutes
+      });
+
+      this.setState({ statistical: await getStatistical(), billTenLast: await getBillTenLast(), dataChart: await getDataChart() })
+    } catch (error) {
+      console.log(error);
+    } finally {
+      this.setState({ isLoading: false });
+    }
+  }
+
+  formatData(data) {
+    const formattedData = data.map((value) => {
+      return (value / 1000000).toFixed(2);
     });
+    return formattedData;
   }
 
   render() {
-    const { currentDate } = this.state;
+    const { currentDate, statistical, dataChart, billTenLast, isLoading } = this.state;
+    const navigation = this.props.navigation;
 
-    const info = [
-      { id: '1', title: 'Khách hàng', number: 100, icon: require('../../../assets/images/Ticket/customer.png'), isVolatility: true, volatility: 16 },
-      { id: '2', title: 'Doanh thu', number: '10.000k', icon: require('../../../assets/images/Ticket/revenue.png'), isVolatility: false, volatility: -16 },
-      { id: '3', title: 'Hóa đơn', number: 20, icon: require('../../../assets/images/Ticket/bill.png'), isVolatility: true, volatility: 10 },
-      { id: '4', title: 'Vé', number: 50, icon: require('../../../assets/images/Ticket/ticket.png'), isVolatility: false, volatility: -5 }
-    ]
+    let info = []
+    statistical ?
+      info = [
+        { id: '1', title: 'Khách hàng', number: statistical.customerCount, icon: require('../../../assets/images/Ticket/customer.png'), isVolatility: true, volatility: statistical.customerVolatility },
+        { id: '2', title: 'Doanh thu', number: (statistical.totalRevenue / 1000000).toFixed(2) + 'tr', icon: require('../../../assets/images/Ticket/revenue.png'), isVolatility: false, volatility: statistical.revenueVolatility },
+        { id: '3', title: 'Hóa đơn', number: statistical.billCount, icon: require('../../../assets/images/Ticket/bill.png'), isVolatility: true, volatility: statistical.billVolatility },
+        { id: '4', title: 'Vé', number: statistical.ticketCount, icon: require('../../../assets/images/Ticket/ticket.png'), isVolatility: false, volatility: statistical.ticketVolatility }
+      ]
+      :
+      info = [
+        { id: '1', title: 'Khách hàng', number: 0, icon: require('../../../assets/images/Ticket/customer.png'), isVolatility: true, volatility: 0 },
+        { id: '2', title: 'Doanh thu', number: 0, icon: require('../../../assets/images/Ticket/revenue.png'), isVolatility: false, volatility: 0 },
+        { id: '3', title: 'Hóa đơn', number: 0, icon: require('../../../assets/images/Ticket/bill.png'), isVolatility: true, volatility: 0 },
+        { id: '4', title: 'Vé', number: 0, icon: require('../../../assets/images/Ticket/ticket.png'), isVolatility: false, volatility: 0 }
+      ]
 
-    const history = [
-      { id: '1', avatar: require('../../../assets/images/avatar/bear.png'), name: 'Vũ Đỗ', dateCreate: currentDate, numTicket: 3, numService: 4, price: 500 },
-      { id: '2', avatar: require('../../../assets/images/avatar/fox.png'), name: 'Nam Nguyễn', dateCreate: currentDate, numTicket: 6, numService: 9, price: 1000 },
-      { id: '3', avatar: require('../../../assets/images/avatar/frog.png'), name: 'Kely Trần', dateCreate: currentDate, numTicket: 7, numService: 0, price: 800 },
-      { id: '4', avatar: require('../../../assets/images/avatar/panda.png'), name: 'Mai Dora', dateCreate: currentDate, numTicket: 9, numService: 9, price: 50 },
-      { id: '5', avatar: require('../../../assets/images/avatar/bear.png'), name: 'Tính Ngô', dateCreate: currentDate, numTicket: 7, numService: 4, price: 500 },
-    ]
+    const formatDate = (date) => {
+      return `${date.getDate()}/${date.getMonth() +
+        1}/${date.getFullYear()}`;
+    };
+
+    const calculateTimeAgo = (bill) => {
+      const created_at = bill.created_at;
+      const createdDate = new Date(created_at);
+      const now = new Date();
+      const timeDiff = now - createdDate;
+
+      const minutesDiff = Math.floor(timeDiff / (1000 * 60));
+      const hoursDiff = Math.floor(timeDiff / (1000 * 60 * 60));
+      const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+
+      if (minutesDiff < 60) {
+        return minutesDiff + " phút trước";
+      } else if (hoursDiff < 24) {
+        return hoursDiff + " giờ trước";
+      } else {
+        return daysDiff + " ngày trước";
+      }
+    }
 
     return (
       <FlatList
@@ -76,13 +123,20 @@ export default class Ticket extends Component {
                 ?
                 <View style={styles.viewVol}>
                   <Text style={[{ color: colors.red }, styles.textVol]}>↑</Text>
-                  <Text style={[{ color: colors.red }, styles.textVol1]}> {item.volatility}%</Text>
+                  {
+                    item.volatility === null ? <Text style={[{ color: colors.red }, styles.textVol1]}> 0%</Text>
+                      : <Text style={[{ color: colors.red }, styles.textVol1]}> {item.volatility}%</Text>
+                  }
+
                   <Text style={styles.textVol1}> so với tháng trước</Text>
                 </View>
                 :
                 <View style={styles.viewVol}>
                   <Text style={[{ color: colors.mainHome }, styles.textVol]}>↓</Text>
-                  <Text style={[{ color: colors.mainHome }, styles.textVol1]}> {item.volatility}%</Text>
+                  {
+                    item.volatility === null ? <Text style={[{ color: colors.mainHome }, styles.textVol1]}> 0%</Text>
+                      : <Text style={[{ color: colors.mainHome }, styles.textVol1]}> {item.volatility}%</Text>
+                  }
                   <Text style={styles.textVol1}> so với tháng trước</Text>
                 </View>
             }
@@ -97,34 +151,20 @@ export default class Ticket extends Component {
                   labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
                   datasets: [
                     {
-                      data: [
-                        Math.random() * 10,
-                        Math.random() * 10,
-                        Math.random() * 10,
-                        Math.random() * 10,
-                        Math.random() * 10,
-                        Math.random() * 10,
-                        Math.random() * 10,
-                        Math.random() * 10,
-                        Math.random() * 10,
-                        Math.random() * 10,
-                        Math.random() * 10,
-                        Math.random() * 10
-                      ]
+                      data: dataChart ? this.formatData(dataChart) : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                     }
                   ]
                 }}
-                width={800} // from react-native
+                width={800}
                 height={250}
                 yAxisLabel="đ"
                 yAxisSuffix="tr"
-                yAxisInterval={1} // optional, defaults to 1
-                la
+                yAxisInterval={10}
                 chartConfig={{
                   backgroundColor: colors.text,
                   backgroundGradientFrom: 'green',
                   backgroundGradientTo: colors.phaneon,
-                  decimalPlaces: 0, // optional, defaults to 2dp
+                  decimalPlaces: 0,
                   color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                   labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                   style: {
@@ -144,29 +184,35 @@ export default class Ticket extends Component {
             </ScrollView>
             <Text style={styles.textTitleFoot}>Hoá đơn gần nhất</Text>
             {
-              history.map((item) => (
-                <TouchableOpacity style={styles.containerHis} key={item.id}>
-                  <View style={styles.viewAvatarHis}>
-                    <Image style={styles.avatarHis} source={item.avatar} />
-                  </View>
-                  <View style={styles.viewInfoHis}>
-                    <Text style={styles.textNameHis}>{item.name}</Text>
-                    <Text style={styles.textTitle}>{item.dateCreate}</Text>
-                    <View style={styles.viewRowHis}>
-                      <View style={styles.viewRowHis1}>
-                        <Image style={styles.iconHis} source={require('../../../assets/images/Ticket/ticket.png')} />
-                        <Text>{item.numTicket}</Text>
+              isLoading ?
+                <View style={styles.ViewLoading}>
+                  <ActivityIndicator color={colors.mainHome} size={25} />
+                  <Text style={styles.textName}>Đang tải dữ liệu</Text>
+                </View> : (
+                  billTenLast.map((item, index) => (
+                    <TouchableOpacity style={styles.containerHis} key={index} onPress={() => navigation.navigate('TicketsPaidScreen', {data: item})}>
+                      <View style={styles.viewAvatarHis}>
+                        <Image style={styles.avatarHis} source={{ uri: item.employer[0].avatar_url }} />
                       </View>
-                      <View style={styles.viewRowHis1}>
-                        <Image style={styles.iconHis1} source={require('../../../assets/images/Ticket/rent.png')} />
-                        <Text>{item.numTicket}</Text>
+                      <View style={styles.viewInfoHis}>
+                        <Text style={styles.textNameHis}>{item.employer[0].name} {item.employer[0].first_name} </Text>
+                        <Text style={styles.textTitle}>{formatDate(new Date(item.bill.visit_date))}</Text>
+                        <View style={styles.viewRowHis}>
+                          <View style={styles.viewRowHis1}>
+                            <Image style={styles.iconHis} source={require('../../../assets/images/Ticket/ticket.png')} />
+                            <Text>{item.tickets.length}</Text>
+                          </View>
+                          <View style={styles.viewRowHis1}>
+                            <Image style={styles.iconHis1} source={require('../../../assets/images/Ticket/rent.png')} />
+                            <Text>{item.services.length}</Text>
+                          </View>
+                        </View>
                       </View>
-                    </View>
-                  </View>
-                    <Text style={styles.textPriceHis}>{item.price}k</Text>
-                    <Image style={styles.iconArrowHis} source={require('../../../assets/images/arrowRight.png')} />
-                </TouchableOpacity>
-              ))
+                      <Text style={styles.textPriceHis}>{(item.bill.total_price / 1000).toLocaleString().replace(',', '.')}k</Text>
+                      <Text style={styles.textTimeAgo}>{calculateTimeAgo(item.bill)}</Text>
+                      <Image style={styles.iconArrowHis} source={require('../../../assets/images/arrowRight.png')} />
+                    </TouchableOpacity>
+                  )))
             }
           </View>
         }

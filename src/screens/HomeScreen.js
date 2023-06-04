@@ -56,8 +56,8 @@ export default class HomeScreen extends Component {
             value={password}
             onChangeText={this.handlePasswordChange}
           />
-          <TouchableOpacity style={styles.button} onPress={this.handleLoginPress}>
-            <Text style={styles.buttonText} onPress={() => navigation.navigate('TabBar')}>Đăng nhập</Text>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('TabBar')}>
+            <Text style={styles.buttonText} >Đăng nhập</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

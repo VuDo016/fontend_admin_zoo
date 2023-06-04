@@ -5,6 +5,13 @@ import colors from "../../assets/colors/colors";
 const screenHeight = Dimensions.get('screen').height;
 
 const styles = StyleSheet.create({
+    ViewLoading: {
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    textName: {
+        fontSize: 17
+    },
     header: {
         height: screenHeight / 9,
         justifyContent: 'center',
@@ -15,7 +22,7 @@ const styles = StyleSheet.create({
     },
     item: {
         width: '46%',
-        height: screenHeight / 5.5,
+        height: screenHeight / 7,
         backgroundColor: colors.text,
         marginLeft: '3%',
         marginVertical: '2%',
@@ -56,7 +63,7 @@ const styles = StyleSheet.create({
         color: colors.mainDark
     },
     textNumber: {
-        fontSize: 30,
+        fontSize: 25,
         fontWeight: 'bold',
         color: colors.black
     },
@@ -94,7 +101,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         borderRadius: 10,
-        paddingHorizontal: '2%'
+        paddingHorizontal: '5%'
     },
     viewAvatarHis: {
         height: '65%',
@@ -102,15 +109,17 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 200,
-        backgroundColor: colors.greenLight
+        backgroundColor: colors.greenLight,
+        marginRight: '5%'
     },
     avatarHis : {
-        height: '100%',
-        width: '100%'
+        height: '90%',
+        width: '90%',
+        borderRadius: 200
     },
     viewInfoHis: {
         height: '75%',
-        width: '55%',
+        width: '40%',
         justifyContent: 'space-between'
     },
     textNameHis: {
@@ -123,11 +132,19 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: colors.black
     },
+    textTimeAgo: {
+        fontSize: 15,
+        color: colors.mainHome,
+        position: "absolute",
+        right: '10%',
+        top: '10%',
+        fontWeight: '500'
+    },
     viewRowHis: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        width: '70%'
+        width: '60%'
     },
     viewRowHis1: {
         flexDirection: 'row',
@@ -145,7 +162,8 @@ const styles = StyleSheet.create({
     },
     iconArrowHis: {
         height: '30%',
-        width: '5%'
+        width: '5%',
+        marginLeft: '5%'
     },
     //////////////Manager Sale Ticket ///////////////////
     containerManager: {
@@ -187,8 +205,9 @@ const styles = StyleSheet.create({
         backgroundColor: colors.greenLight
     },
     avatarManager : {
-        height: '100%',
-        width: '100%'
+        height: '90%',
+        width: '90%',
+        borderRadius: 200
     },
     iconManager: {
         height: 15,
@@ -227,6 +246,9 @@ const styles = StyleSheet.create({
         top: '5%'
     },
     ///////////////////
+    containerFoot: {
+        height: screenHeight / 10
+    },
     containerManager1: {
         height: screenHeight / 13,
         width: '95%',
@@ -248,8 +270,9 @@ const styles = StyleSheet.create({
         backgroundColor: colors.greenLight
     },
     avatarManager1 : {
-        height: '100%',
-        width: '100%'
+        height: '90%',
+        width: '90%',
+        borderRadius: 200
     },
     viewTextManager1: {
         height: '100%',
