@@ -8,10 +8,10 @@ export default class Home extends Component {
     const navigation = this.props.navigation
 
     const info = [
-      { id: '1', title: 'Động vật', icon: require('../../../assets/images/manager/animal.png') },
-      { id: '2', title: 'Thực vật', icon: require('../../../assets/images/manager/plant.png') },
-      { id: '3', title: 'sản phẩm', icon: require('../../../assets/images/manager/shop.png') },
-      { id: '4', title: 'Thực đơn', icon: require('../../../assets/images/manager/food.png') }
+      { id: '1', title: 'Động vật', icon: require('../../../assets/images/manager/animal.png'), screen: 'AnimalScreen' },
+      { id: '2', title: 'Thực vật', icon: require('../../../assets/images/manager/plant.png'), screen: '' },
+      { id: '3', title: 'sản phẩm', icon: require('../../../assets/images/manager/shop.png'), screen: '' },
+      { id: '4', title: 'Thực đơn', icon: require('../../../assets/images/manager/food.png'), screen: '' }
     ]
 
     const customer = [
@@ -42,7 +42,7 @@ export default class Home extends Component {
                 <Image style={styles.imgStaff} source={require('../../../assets/images/Main/ticketHis.png')} />
                 <Text style={styles.textItemStaff}>Quản lý đặt vé</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.viewItemStaff} onPress={() => navigation.navigate('EventManager', { title: 'quản lý sự kiện'  })}>
+              <TouchableOpacity style={styles.viewItemStaff} onPress={() => navigation.navigate('EventScreen', { title: 'quản lý sự kiện'  })}>
                 <Image style={styles.imgStaff} source={require('../../../assets/images/Main/schedule.png')} />
                 <Text style={styles.textItemStaff}>Quản lý sự kiện</Text>
               </TouchableOpacity>
@@ -55,7 +55,7 @@ export default class Home extends Component {
           </View>
         }
         renderItem={({ item }) => (
-          <TouchableOpacity style={styles.viewItem} key={item.id}>
+          <TouchableOpacity style={styles.viewItem} key={item.id} onPress={() => navigation.navigate(item.screen)}>
             <Image style={styles.imageItem} source={item.icon} />
             <View style={styles.viewInfoItem}>
               <Text style={styles.textItem}>{item.title}</Text>

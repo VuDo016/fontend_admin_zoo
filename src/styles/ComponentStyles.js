@@ -79,7 +79,24 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: 'bold',
         color: colors.greenDark
-    }
+    },
+    /////////////////
+    container2: {
+        height: screenHeight / 15,
+        width: '25%',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    button2: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: colors.greenLight,
+        borderRadius: 15,
+        borderWidth: 2,
+        borderColor: colors.greenLight2,
+        height: '100%',
+        width: '100%'
+    },
 })
 
 export default styles;

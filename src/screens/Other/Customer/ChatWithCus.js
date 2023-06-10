@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, Button, FlatList } from 'react-native';
 import io from 'socket.io-client';
+import { https } from '../../../../api/http/http';
 
 class ChatWithCus extends Component {
     constructor(props) {
@@ -15,8 +16,10 @@ class ChatWithCus extends Component {
     }
 
     componentDidMount() {
+        const https2 = https.replace('/api/', '')
+
         // Thay vì kết nối tới server socket.io, bạn sẽ gửi yêu cầu POST để bắt đầu phiên chat và nhận chatId từ API
-        fetch('http://192.168.101.30:3000/chat', {
+        fetch(https2 + '/chat', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -31,7 +34,7 @@ class ChatWithCus extends Component {
                 this.setState({ chatId });
 
                 // Kết nối tới server socket.io
-                const socket = io('http://192.168.101.30:3000');
+                const socket = io(https2);
                 this.setState({ socket });
 
                 // Lắng nghe sự kiện nhận tin nhắn mới

@@ -5,11 +5,16 @@ import SplashScreen from './screens/SplashScreen';
 import HomeScreen from './screens/HomeScreen';
 import TabBar from './components/TabBar';
 import TicketManager from './screens/Other/Staff/TicketManager';
-import EventManager from './screens/Other/Staff/EventManager';
 import ProfileStaff from './screens/Other/Staff/ProfileStaff';
 import ScanQRcode from './screens/Main/ScanQRcode';
 import ChatWithCus from './screens/Other/Customer/ChatWithCus';
 import TicketsPaidScreen from './screens/Other/Customer/TicketsPaidScreen';
+import AnimalScreen from './screens/Other/Zoo/AnimalScreen';
+import InfoAnimal from './screens/Other/Zoo/InfoAnimal';
+import AddAnimal from './screens/Other/Zoo/AddAnimal';
+import AddEvent from './screens/Other/Zoo/AddEvent';
+import EventScreen from './screens/Other/Zoo/EventScreen';
+import InfoEvent from './screens/Other/Zoo/InfoEvent';
 
 const stack = createNativeStackNavigator();
 
@@ -27,11 +32,16 @@ export default class Main extends Component {
         <stack.Screen name="HomeScreen" component={HomeScreen} />
         <stack.Screen name="TabBar" component={TabBar} />
         <stack.Screen name="TicketManager" component={TicketManager} />
-        <stack.Screen name="EventManager" component={EventManager} />
         <stack.Screen name="ProfileStaff" component={ProfileStaff} />
         <stack.Screen name="ScanQRcode" component={ScanQRcode} />
         <stack.Screen name="ChatWithCus" component={ChatWithCus} />
         <stack.Screen name="TicketsPaidScreen" component={TicketsPaidScreen} />
+        <stack.Screen name="AnimalScreen" component={AnimalScreen} />
+        <stack.Screen name="InfoAnimal" component={InfoAnimal} />
+        <stack.Screen name="AddAnimal" component={AddAnimal} />
+        <stack.Screen name="AddEvent" component={AddEvent} />
+        <stack.Screen name="InfoEvent" component={InfoEvent} />
+        <stack.Screen name="EventScreen" component={EventScreen} />
       </stack.Navigator>
     </NavigationContainer>
     )
