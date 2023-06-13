@@ -106,6 +106,14 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: colors.text
     },
+    textNameRole: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: colors.text,
+        position: "absolute",
+        right: '3%',
+        top: '2%'
+    },
     viewItem: {
         height: screenHeight / 5,
         width: '45%',

@@ -15,6 +15,7 @@ import AddAnimal from './screens/Other/Zoo/AddAnimal';
 import AddEvent from './screens/Other/Zoo/AddEvent';
 import EventScreen from './screens/Other/Zoo/EventScreen';
 import InfoEvent from './screens/Other/Zoo/InfoEvent';
+import RegisterScreen from './screens/Other/Staff/RegisterScreen';
 
 const stack = createNativeStackNavigator();
 
@@ -42,6 +43,7 @@ export default class Main extends Component {
         <stack.Screen name="AddEvent" component={AddEvent} />
         <stack.Screen name="InfoEvent" component={InfoEvent} />
         <stack.Screen name="EventScreen" component={EventScreen} />
+        <stack.Screen name="RegisterScreen" component={RegisterScreen} />
       </stack.Navigator>
     </NavigationContainer>
     )

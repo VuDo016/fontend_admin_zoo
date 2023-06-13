@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { View, TextInput, TouchableOpacity, Text, Image, ScrollView } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import styles from '../styles/HomeStyles';
 import colors from '../../assets/colors/colors';
+import { handle_SignIn_SignUp_KH } from '../../api/method/post';
 
 export default class HomeScreen extends Component {
   state = {
@@ -19,11 +21,20 @@ export default class HomeScreen extends Component {
     this.setState({ password });
   };
 
-  handleLoginPress = () => {
-    const { email, password } = this.state;
+  async checkLoginKhachHang(navigation) {
+    try {
+      const data = await handle_SignIn_SignUp_KH(this.state.email, this.state.password, '', 1)
+      if (data[0].tokens.length !== 0) {
+        AsyncStorage.setItem('token', JSON.stringify(data[0].tokens))
+        AsyncStorage.setItem('user', JSON.stringify(data[0].userId))
+        AsyncStorage.setItem('role', JSON.stringify(data[0].role))
 
-    // You can perform authentication here and navigate to the main app screen
-  };
+        navigation.navigate('TabBar')
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   render() {
     const { email, password } = this.state;
@@ -56,7 +67,7 @@ export default class HomeScreen extends Component {
             value={password}
             onChangeText={this.handlePasswordChange}
           />
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('TabBar')}>
+          <TouchableOpacity style={styles.button} onPress={() => this.checkLoginKhachHang(navigation)}>
             <Text style={styles.buttonText} >Đăng nhập</Text>
           </TouchableOpacity>
         </View>
