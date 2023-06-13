@@ -16,6 +16,9 @@ import AddEvent from './screens/Other/Zoo/AddEvent';
 import EventScreen from './screens/Other/Zoo/EventScreen';
 import InfoEvent from './screens/Other/Zoo/InfoEvent';
 import RegisterScreen from './screens/Other/Staff/RegisterScreen';
+import ManagerStaff from './screens/Other/Staff/ManagerStaff';
+import ManagerUser from './screens/Other/Customer/ManagerUser';
+import InfoProfile from './screens/Other/Staff/InfoProfile';
 
 const stack = createNativeStackNavigator();
 
@@ -44,6 +47,9 @@ export default class Main extends Component {
         <stack.Screen name="InfoEvent" component={InfoEvent} />
         <stack.Screen name="EventScreen" component={EventScreen} />
         <stack.Screen name="RegisterScreen" component={RegisterScreen} />
+        <stack.Screen name="ManagerStaff" component={ManagerStaff} />
+        <stack.Screen name="ManagerUser" component={ManagerUser} />
+        <stack.Screen name="InfoProfile" component={InfoProfile} />
       </stack.Navigator>
     </NavigationContainer>
     )

@@ -49,6 +49,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: colors.greenLight
     },
+    viewSelecInput: {
+        width: '50%',
+        height: '90%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: colors.text,
+        borderWidth: 1.5,
+        paddingLeft: '5%',
+        borderRadius: 20,
+        fontSize: 17
+    },
     image: {
         height: screenWidth / 10,
         width: screenWidth / 10,

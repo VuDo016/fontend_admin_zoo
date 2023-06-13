@@ -11,6 +11,17 @@ export const post = async (bodyData, url, data, token) => {
     return resJson[data]
 }
 
+export const post1 = async (bodyData, url) => {
+    const response = await fetch(https + url,
+        {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json; charset=utf-8' },
+            body: JSON.stringify(bodyData),
+        })
+    const resJson = await response.json();
+    return resJson
+}
+
 export const uploadImage = async (imageUris, url, type, value, token) => {
     try {
         const apiUrl = `${https}${url}/${type}/${value}`;

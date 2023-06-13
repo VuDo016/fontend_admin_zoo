@@ -8,8 +8,8 @@ import { handle_SignIn_SignUp_KH } from '../../api/method/post';
 
 export default class HomeScreen extends Component {
   state = {
-    email: '',
-    password: '',
+    email: 'admin@gmail.com',
+    password: '12345678',
     rememberMe: false
   };
 

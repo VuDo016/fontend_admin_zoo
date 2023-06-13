@@ -29,7 +29,7 @@ export default class Home extends Component {
     ]
 
     const customer = [
-      { id: '1', title: 'Tài khoản khách hàng', icon: require('../../../assets/images/Main/account.png'), screen: 'ChatWithCus' },
+      { id: '1', title: 'Tài khoản khách hàng', icon: require('../../../assets/images/Main/account.png'), screen: 'ManagerUser' },
       { id: '2', title: 'Bình luận từ khách hàng', icon: require('../../../assets/images/Main/comment.png'), screen: 'ChatWithCus' },
       { id: '3', title: 'Hỗ trợ khách hàng', icon: require('../../../assets/images/Main/support.png'), screen: 'ChatWithCus' },
       { id: '4', title: 'Quỹ quyên góp', icon: require('../../../assets/images/Main/donation.png'), screen: 'ChatWithCus' }
@@ -100,7 +100,7 @@ export default class Home extends Component {
                     <Text style={styles.textFoot}>Tạo tài khoản cho nhân viên</Text>
                     <Image style={styles.arrowFoot} source={require('../../../assets/images/arrowRight.png')} />
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.viewFoot} onPress={() => navigation.navigate(item.screen)}>
+                  <TouchableOpacity style={styles.viewFoot} onPress={() => navigation.navigate('ManagerStaff')}>
                     <Text style={styles.textFoot}>Quản lý nhân viên</Text>
                     <Image style={styles.arrowFoot} source={require('../../../assets/images/arrowRight.png')} />
                   </TouchableOpacity>
