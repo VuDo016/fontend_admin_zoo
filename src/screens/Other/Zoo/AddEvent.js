@@ -7,6 +7,7 @@ import DropdownList from '../../../components/DropdownList ';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import DateChoice from '../../../components/DateChoice';
 import { createEvent } from '../../../../api/service/event';
+import { uploadImageUser } from '../../../../api/service/account.js';
 
 export default class AddEvent extends Component {
   constructor(props) {
@@ -79,9 +80,14 @@ export default class AddEvent extends Component {
     event.end_time = new Date(dateEnd)
     event.price = +event.price
     event.longTime = +event.longTime
+    const imgChoice = this.state.images
 
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsImVtYWlsIjoidnVkbzQ1NkBnbWFpbC5jb20iLCJpYXQiOjE2ODYxMTYzMDIsImV4cCI6MTY4NjEyNzEwMn0.baFZYgMbd9Ioupkxby-dnFT2oZW8tMD97P3_V4Io4YU'
-    await createEvent(event, token)
+    const id = await createEvent(event)
+    if (imgChoice.length > 0) {
+      event.image_url = imgChoice[0]
+      await uploadImageUser(imgChoice, 'event', id)
+    }
+
     alert('Thêm mới sự kiện thành công !!!')
     this.props.navigation.goBack()
   }
@@ -159,7 +165,7 @@ export default class AddEvent extends Component {
               <Text style={styles.textInputEdit}>Chi tiết</Text>
               <TextInput style={styles.inputEdit2} onChangeText={text => this.setValue('description', text)} numberOfLines={10} multiline={true} placeholder='Nhập chi tiết mô tả' />
             </View>
-            <TouchableOpacity style={styles.saveButton} onPress={() => this.createEvent()}>
+            <TouchableOpacity style={styles.saveButtonAdd} onPress={() => this.createEvent()}>
               <Text style={styles.saveButtonText}>Thêm mới</Text>
             </TouchableOpacity>
           </View>

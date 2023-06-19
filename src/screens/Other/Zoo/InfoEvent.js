@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity, Image, TextInput, ScrollView } from 'react-native'
+import { Text, View, TouchableOpacity, Image, TextInput, ScrollView, Alert } from 'react-native'
 import React, { Component } from 'react'
 
 import styles from '../../../styles/AnimalStyles'
@@ -6,7 +6,9 @@ import TabBack from '../../../components/TabBack';
 import DropdownList from '../../../components/DropdownList ';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import DateChoice from '../../../components/DateChoice';
-import { updateEvent } from '../../../../api/service/event';
+import { updateEvent, deleteEvent } from '../../../../api/service/event';
+import { uploadImageUser, delImageFire } from '../../../../api/service/account.js';
+import colors from '../../../../assets/colors/colors';
 
 export default class InfoEvent extends Component {
   constructor(props) {
@@ -63,18 +65,43 @@ export default class InfoEvent extends Component {
   }
 
   async updateEvent() {
-    const { event, dateStart, dateEnd, location } = this.state
+    const { event, dateStart, dateEnd, location, images } = this.state
     event.location = location,
-    event.start_time = new Date(dateStart)
+      event.start_time = new Date(dateStart)
     event.end_time = new Date(dateEnd)
     event.price = +event.price
     event.longTime = +event.longTime
 
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsImVtYWlsIjoidnVkbzQ1NkBnbWFpbC5jb20iLCJpYXQiOjE2ODYxMTYzMDIsImV4cCI6MTY4NjEyNzEwMn0.baFZYgMbd9Ioupkxby-dnFT2oZW8tMD97P3_V4Io4YU'
-    await updateEvent(event, token)
+    const imgUp = event.image_url
+
+    if (images.length > 0) {
+      event.image_url = images[0]
+      await delImageFire('event', imgUp, event.id)
+      await uploadImageUser(images, 'event', event.id)
+    }
+
+    await updateEvent(event)
     alert('Cập nhập sự kiện thành công !!!')
     this.props.navigation.goBack()
-}
+  }
+
+  handleDelete = () => {
+    Alert.alert(
+      'Xác nhận',
+      'Bạn có chắc chắn muốn xoá sự kiện này không?',
+      [
+        { text: 'Không', style: 'cancel' },
+        { text: 'Có', onPress: this.deleteEvent },
+      ]
+    );
+  };
+
+  deleteEvent = async () => {
+    const data = this.state.event
+    await deleteEvent(data.id)
+    Alert.alert('Thành công', 'Sự kiện đã được xoá thành công !!')
+    this.props.navigation.goBack()
+  }
 
   render() {
     const { location, event, images, loading, dateStart, dateEnd } = this.state;
@@ -150,8 +177,11 @@ export default class InfoEvent extends Component {
               <Text style={styles.textInputEdit}>Chi tiết</Text>
               <TextInput style={styles.inputEdit2} onChangeText={text => this.setValue('description', text)} numberOfLines={10} multiline={true} placeholder='Nhập chi tiết mô tả' value={event.description} />
             </View>
-            <TouchableOpacity style={styles.saveButton} onPress={() => this.updateEvent()}>
+            <TouchableOpacity style={[styles.saveButton, { marginTop: 40 }]} onPress={() => this.updateEvent()}>
               <Text style={styles.saveButtonText}>Lưu thay đổi</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.saveButton, { marginVertical: 10, backgroundColor: colors.orange }]} onPress={() => this.handleDelete()}>
+              <Text style={styles.saveButtonText}>Xoá sự kiện</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>

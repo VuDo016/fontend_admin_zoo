@@ -1,11 +1,12 @@
-import { Text, View, TouchableOpacity, Image, TextInput, ScrollView } from 'react-native'
+import { Text, View, TouchableOpacity, Image, TextInput, ScrollView, Alert } from 'react-native'
 import React, { Component } from 'react'
 
 import styles from '../../../styles/AnimalStyles'
 import TabBack from '../../../components/TabBack';
 import DropdownList from '../../../components/DropdownList ';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import { updateAnimal, uploadImageAnimal } from '../../../../api/service/animal';
+import colors from '../../../../assets/colors/colors';
+import { updateAnimal, uploadImageAnimal, deleteAnimal, deleteAnimalImg } from '../../../../api/service/animal';
 
 export default class InfoAnimal extends Component {
     constructor(props) {
@@ -193,6 +194,25 @@ export default class InfoAnimal extends Component {
         this.props.navigation.goBack()
     }
 
+    handleDelete = () => {
+        Alert.alert(
+            'Xác nhận',
+            'Bạn có chắc chắn muốn xoá sự kiện này không?',
+            [
+                { text: 'Không', style: 'cancel' },
+                { text: 'Có', onPress: this.deleteAnimal },
+            ]
+        );
+    };
+
+    deleteAnimal = async () => {
+        const data = this.props.route.params.data
+        await deleteAnimalImg('animal', data.id)
+        await deleteAnimal(data.id)
+        Alert.alert('Thành công', 'Động vật đã được xoá thành công !!')
+        this.props.navigation.goBack()
+    }
+
     render() {
         const { speacies, food, habitat, iucn, animal, images, loading } = this.state;
         const navigation = this.props.navigation
@@ -349,8 +369,11 @@ export default class InfoAnimal extends Component {
                             options={iucn1}
                         />
                     </View>
-                    <TouchableOpacity style={styles.saveButton} onPress={() => this.updateAnimal()}>
+                    <TouchableOpacity style={[styles.saveButton, { marginTop: 40 }]} onPress={() => this.updateAnimal()}>
                         <Text style={styles.saveButtonText}>Lưu thay đổi</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.saveButton, { marginVertical: 10, backgroundColor: colors.orange }]} onPress={() => this.handleDelete()}>
+                        <Text style={styles.saveButtonText}>Xoá động vật</Text>
                     </TouchableOpacity>
                 </ScrollView>
             </View>

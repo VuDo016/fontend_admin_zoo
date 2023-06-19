@@ -3,36 +3,42 @@ import React, { Component } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import styles from '../../styles/HomeLast'
+import { getAllAccountID } from '../../../api/service/account';
 
 export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
       role: [],
+      userDetail: []
     };
+  }
+
+  async getDataUser() {
+    const idUser = await AsyncStorage.getItem('user');
+
+    this.setState({ userDetail: await getAllAccountID(JSON.parse(idUser)) })
   }
 
   async componentDidMount() {
     const role = await AsyncStorage.getItem('role');
     this.setState({ role: JSON.parse(role) })
+    await this.getDataUser()
   }
 
   render() {
     const navigation = this.props.navigation
-    const { role } = this.state
+    const { role, userDetail } = this.state
 
     const info = [
       { id: '1', title: 'Động vật', icon: require('../../../assets/images/manager/animal.png'), screen: 'AnimalScreen' },
-      { id: '2', title: 'Thực vật', icon: require('../../../assets/images/manager/plant.png'), screen: '' },
-      { id: '3', title: 'sản phẩm', icon: require('../../../assets/images/manager/shop.png'), screen: '' },
-      { id: '4', title: 'Thực đơn', icon: require('../../../assets/images/manager/food.png'), screen: '' }
+      { id: '2', title: 'Sự kiện', icon: require('../../../assets/images/manager/plant.png'), screen: 'EventScreen' }
     ]
 
     const customer = [
       { id: '1', title: 'Tài khoản khách hàng', icon: require('../../../assets/images/Main/account.png'), screen: 'ManagerUser' },
-      { id: '2', title: 'Bình luận từ khách hàng', icon: require('../../../assets/images/Main/comment.png'), screen: 'ChatWithCus' },
-      { id: '3', title: 'Hỗ trợ khách hàng', icon: require('../../../assets/images/Main/support.png'), screen: 'ChatWithCus' },
-      { id: '4', title: 'Quỹ quyên góp', icon: require('../../../assets/images/Main/donation.png'), screen: 'ChatWithCus' }
+      { id: '2', title: 'Bình luận từ khách hàng', icon: require('../../../assets/images/Main/comment.png'), screen: null },
+      { id: '3', title: 'Yêu cầu hoàn tiền', icon: require('../../../assets/images/Main/support.png'), screen: 'ChatWithCus' }
     ]
 
     return (
@@ -57,11 +63,7 @@ export default class Home extends Component {
                 <Image style={styles.imgStaff} source={require('../../../assets/images/Main/ticketHis.png')} />
                 <Text style={styles.textItemStaff}>Quản lý đặt vé</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.viewItemStaff} onPress={() => navigation.navigate('EventScreen', { title: 'quản lý sự kiện' })}>
-                <Image style={styles.imgStaff} source={require('../../../assets/images/Main/schedule.png')} />
-                <Text style={styles.textItemStaff}>Quản lý sự kiện</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.viewItemStaff} onPress={() => navigation.navigate('ProfileStaff', { title: 'thông tin nhân viên' })}>
+              <TouchableOpacity style={styles.viewItemStaff} onPress={() => navigation.navigate('ProfileStaff', { title: 'thông tin nhân viên', data: userDetail })}>
                 <Image style={styles.imgStaff} source={require('../../../assets/images/Main/man.png')} />
                 <Text style={styles.textItemStaff}>Thông tin cá nhân</Text>
               </TouchableOpacity>
@@ -85,7 +87,7 @@ export default class Home extends Component {
             <Text style={styles.textTitleItem}>Khách hàng </Text>
             {
               customer.map((item) => (
-                <TouchableOpacity style={styles.viewFoot} key={item.id} onPress={() => navigation.navigate(item.screen)}>
+                <TouchableOpacity style={styles.viewFoot} key={item.id} onPress={() => item.screen ? navigation.navigate(item.screen) : alert('Vui lòng đăng nhập app đặt vé để xem chi tiết !!')}>
                   <Image style={styles.imgFoot} source={item.icon} />
                   <Text style={styles.textFoot}>{item.title}</Text>
                   <Image style={styles.arrowFoot} source={require('../../../assets/images/arrowRight.png')} />

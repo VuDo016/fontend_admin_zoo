@@ -16,7 +16,8 @@ export default class TicketManager extends Component {
       pageTicketExpired: '',
       isLoading: true,
       numberPage: 0,
-      numberPageEx: 0
+      numberPageEx: 0,
+      currentPage: 1
     };
   }
 
@@ -83,7 +84,7 @@ export default class TicketManager extends Component {
                   <TouchableOpacity style={styles.containerManager} key={index} onPress={() => navigation.navigate('TicketsPaidScreen', { data: item })}>
                     <View style={styles.itemManager}>
                       <View style={styles.viewAvatarManager}>
-                        <Image style={styles.avatarManager} source={{ uri: item.employer[0].avatar_url }} />
+                        <Image style={styles.avatarManager} source={item.employer[0].avatar_url ? { uri: item.employer[0].avatar_url } : require('../../../../assets/images/avatar/avatar.png')} />
                       </View>
                       <View style={styles.viewInfoHis}>
                         <Text numberOfLines={1} style={styles.textNameManager}>{item.employer[0].name} {item.employer[0].first_name}</Text>
@@ -145,7 +146,7 @@ export default class TicketManager extends Component {
                             )
                           }
                           <View style={styles.viewAvatarManager1}>
-                            <Image style={styles.avatarManager1} source={{ uri: item.employer[0].avatar_url }} />
+                            <Image style={styles.avatarManager1} source={item.employer[0].avatar_url ? { uri: item.employer[0].avatar_url } : require('../../../../assets/images/avatar/avatar.png')} />
                           </View>
                           <View style={styles.viewTextManager1}>
                             <Text style={styles.textNameManager1}>{item.employer[0].name} {item.employer[0].first_name}</Text>

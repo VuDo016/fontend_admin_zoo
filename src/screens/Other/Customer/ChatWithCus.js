@@ -1,112 +1,126 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, Button, FlatList } from 'react-native';
-import io from 'socket.io-client';
-import { https } from '../../../../api/http/http';
+import { View, Text, RefreshControl, Button, FlatList, Image, TouchableOpacity, StyleSheet } from 'react-native';
+
+import { getBillCancel } from '../../../../api/service/ticket';
+import TabBack from '../../../components/TabBack';
+import colors from '../../../../assets/colors/colors';
 
 class ChatWithCus extends Component {
-    constructor(props) {
-        super(props);
+    state = {
+        data: [],
+        isLoading: true,
+        refreshing: false
+    };
 
-        this.state = {
-            socket: null,
-            chatId: '',
-            messages: [],
-            newMessage: '',
-        };
+    refreshData() {
+        this.setState({ refreshing: true });
+
+        // Gọi lại hàm getAllAnimal để lấy dữ liệu sự kiện ban đầu
+        this.getAllData().then(() => {
+            this.setState({ refreshing: false });
+        });
     }
 
-    componentDidMount() {
-        const https2 = https.replace('/api/', '')
-
-        // Thay vì kết nối tới server socket.io, bạn sẽ gửi yêu cầu POST để bắt đầu phiên chat và nhận chatId từ API
-        fetch(https2 + '/chat', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({}),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                const { chatId } = data;
-
-                // Lưu chatId vào state
-                this.setState({ chatId });
-
-                // Kết nối tới server socket.io
-                const socket = io(https2);
-                this.setState({ socket });
-
-                // Lắng nghe sự kiện nhận tin nhắn mới
-                socket.on('new-message', this.handleNewMessage);
-
-                // Lấy tin nhắn trước đó từ server
-                socket.on('previous-messages', this.handlePreviousMessages);
-
-                // Tham gia vào phiên chat sau khi nhận được chatId từ API
-                this.joinChat();
-            })
-            .catch((error) => {
-                console.log('Error:', error);
-            });
-    }
-
-
-    componentWillUnmount() {
-        // Ngắt kết nối socket khi component unmount
-        const { socket } = this.state;
-        if (socket) {
-            socket.disconnect();
+    async getAllData() {
+        try {
+            this.setState({ data: await getBillCancel() })
+        } catch (error) {
+            console.log(error);
+        } finally {
+            this.setState({ isLoading: false });
         }
     }
 
-    handleNewMessage = (message) => {
-        this.setState((prevState) => ({
-            messages: [...prevState.messages, message],
-        }));
-    };
+    componentDidMount() {
+        this.getAllData();
+    }
 
-    handlePreviousMessages = (previousMessages) => {
-        this.setState({ messages: previousMessages }, () => {
-          this.joinChat(); // Tham gia vào phiên chat sau khi cập nhật tin nhắn trước đó
-        });
-      };      
+    // Hàm tính toán số tiền hoàn lại dựa trên số ngày huỷ trước
+    calculateRefund = (date, price) => {
+        let refundPercentage = 0;
+        const cancellationDays = date
 
-    joinChat = () => {
-        const { socket, chatId } = this.state;
-        // Gửi yêu cầu tham gia vào phiên chat
-        socket.emit('join-chat', chatId);
-    };
+        if (cancellationDays >= 7) {
+            refundPercentage = 100;
+        } else if (cancellationDays >= 3 && cancellationDays < 7) {
+            refundPercentage = 50;
+        } else if (cancellationDays >= 1 && cancellationDays < 3) {
+            refundPercentage = 20;
+        } else {
+            refundPercentage = 0;
+        }
 
-    sendMessage = () => {
-        const { socket, newMessage } = this.state;
-        // Gửi tin nhắn tới server
-        socket.emit('send-message', newMessage);
-        this.setState({ newMessage: '' });
+        const totalPrice = price; // Giá trị đơn hàng ban đầu
+        const refundAmount = (totalPrice * refundPercentage) / 100;
+
+        return refundAmount;
     };
 
     render() {
-        const { chatId, messages, newMessage } = this.state;
+        const { data } = this.state;
+        const navigation = this.props.navigation
 
         return (
-            <View>
-                <Text>Chat ID: {chatId}</Text>
-                <TextInput value={chatId} onChangeText={(text) => this.setState({ chatId: text })} />
-
-                <Button title="Join Chat" onPress={this.joinChat} />
-
-                <TextInput style={{ borderWidth: 1, margin: 20 }} value={newMessage} onChangeText={(text) => this.setState({ newMessage: text })} />
-
-                <Button title="Send Message" onPress={this.sendMessage} />
-
+            <View style={styles.container}>
+                <TabBack navigation={navigation} title={'yêu cầu hoàn tiền'} />
                 <FlatList
-                    data={messages}
-                    renderItem={({ item }) => <Text>{item}</Text>}
-                    keyExtractor={(item, index) => index.toString()}
+                    data={data}
+                    keyExtractor={({ id }, index) => index}
+                    style={styles.listAllAnimal}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={this.state.refreshing}
+                            onRefresh={() => this.refreshData()}
+                        />
+                    }
+                    renderItem={({ item, index }) => (
+                        <View style={{padding: 16}}>
+                            <TouchableOpacity key={index} style={styles.viewList} onPress={() => navigation.navigate('TicketsPaidScreen', { data: item })}>
+                                <View style={styles.viewRow}>
+                                    <Text style={styles.text}>ID: {item.bill.id}</Text>
+                                    <Text style={styles.text}>{item.employer[0].name} {item.employer[0].first_name}</Text>
+                                </View>
+                                <Text style={styles.text}>Huỷ trước {item.bill.isCancel} ngày</Text>
+                                <Text style={styles.text}>Số tiền cần hoàn: {this.calculateRefund(item.bill.isCancel, item.bill.total_price).toLocaleString()} vnđ</Text>
+                            </TouchableOpacity>
+                            <Button title='Hoàn tiền' onPress={() => navigation.navigate('RefundVNpay', { codeBill: item.bill.codeBill, price: this.calculateRefund(item.bill.isCancel, item.bill.total_price), id: item.bill.id })} />
+                        </View>
+                    )}
                 />
             </View>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+    },
+    viewRow: {
+        flexDirection: 'row',
+        width: '100%',
+        justifyContent: 'space-between'
+    },
+    viewList: {
+        marginVertical: 16,
+        padding: 16,
+        backgroundColor: '#f2f2f2',
+        borderRadius: 8,
+        alignItems: 'flex-start',
+        justifyContent: 'center'
+    },
+    text: {
+        fontSize: 17,
+        color: colors.black,
+        fontWeight: 'bold',
+        marginBottom: 8,
+    },
+    image: {
+        width: 20,
+        height: 20,
+        marginLeft: 'auto',
+    },
+});
 
 export default ChatWithCus;

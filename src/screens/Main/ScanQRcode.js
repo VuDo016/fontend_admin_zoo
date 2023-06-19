@@ -1,15 +1,14 @@
 import {
-    AppRegistry,
     StyleSheet,
     Text,
     TouchableOpacity,
-    Linking
 } from 'react-native';
 import React, { Component } from 'react'
 import { RNCamera } from 'react-native-camera';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 
 import colors from '../../../assets/colors/colors';
+import { scanQRcode } from '../../../api/service/ticket';
 
 export default class ScanQRcode extends Component {
     constructor(props) {
@@ -23,8 +22,24 @@ export default class ScanQRcode extends Component {
         this.setState(data);
     }
 
+    async componentDidUpdate(prevProps, prevState) {
+        // Kiểm tra nếu dữ liệu đã thay đổi
+        const data = this.state.data
+        if (prevState.data !== data) {
+            // Gọi hàm hoặc thực thi các tác vụ cần thiết khi dữ liệu thay đổi
+            const message = await scanQRcode(data)
+            if (message === "Bill updated successfully") {
+                alert('Kích hoạt vé thành công !!')
+                this.props.navigation.navigate('TicketManager')
+            }
+            else {
+                alert(message)
+            }
+        }
+    }
+
     render() {
-        const {data} = this.state
+        const { data } = this.state
 
         return (
             <QRCodeScanner
@@ -34,7 +49,7 @@ export default class ScanQRcode extends Component {
                 markerStyle={{ borderColor: colors.text, borderWidth: 10, borderRadius: 20, opacity: 0.5 }}
                 topContent={
                     <Text style={styles.centerText}>
-                        <Text style={styles.textBold}>Thông tin:  {data}</Text>
+                        <Text style={styles.textBold}>Thông tin: {data}</Text>
                     </Text>
                 }
                 bottomContent={

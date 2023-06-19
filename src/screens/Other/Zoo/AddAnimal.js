@@ -153,7 +153,7 @@ export default class AddAnimal extends Component {
     async createAnimal() {
         const {speacies, images, iucn, food, habitat, data} = this.state
         data.species = speacies
-        data.iucn = +iucn
+        data.iucn_status_id = +iucn
         data.iconFood = +food
         data.iconHabitat = +habitat
         data.food = data.food[0] + '|' + data.food[1]
@@ -162,9 +162,8 @@ export default class AddAnimal extends Component {
         data.area = data.area[0] + '|' + data.area[1]
         data.description = data.description.map(arr => `{${arr.join(" | ")}}`).join(" ");
 
-        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsImVtYWlsIjoidnVkbzQ1NkBnbWFpbC5jb20iLCJpYXQiOjE2ODYwNTIyNTgsImV4cCI6MTY4NjA1NTg1OH0.afWk0lzQfNS-BeHOmvKeFlr6sMMy9t6HKQy8Uo9iV3g'
-        const id = await createAnimal(data, token)
-        await uploadImageAnimal(images, 'animal', id, token)
+        const id = await createAnimal(data)
+        await uploadImageAnimal(images, 'animal', id)
         alert('Tạo động vật mới thành công !!!')
         this.props.navigation.goBack()
     }
@@ -303,7 +302,7 @@ export default class AddAnimal extends Component {
                             options={iucn1}
                         />
                     </View>
-                    <TouchableOpacity style={styles.saveButton} onPress={() => this.createAnimal()}>
+                    <TouchableOpacity style={styles.saveButtonAdd} onPress={() => this.createAnimal()}>
                         <Text style={styles.saveButtonText}>Thêm mới</Text>
                     </TouchableOpacity>
                 </ScrollView>

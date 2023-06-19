@@ -38,7 +38,7 @@ const Tab = createBottomTabNavigator();
 
 export default class TabBar extends Component {
   componentDidMount() {
-    this.refreshTokenInterval = setInterval(this.checkAccessTokenExpiration, 32 * 1000);
+    this.refreshTokenInterval = setInterval(this.checkAccessTokenExpiration, 2 * 1000);
   }
 
   componentWillUnmount() {

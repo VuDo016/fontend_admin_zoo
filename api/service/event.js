@@ -1,23 +1,24 @@
 import { getAll, getByValue1 } from "../method/get";
 import { post, uploadImage } from "../method/post";
 import { put } from "../method/put";
+import { deleteByValue } from "../method/delete";
 
-export const getAllEvent = async (token) => {
-    return await getAll('event', 'events', token)
+export const getAllEvent = async() => {
+    return await getAll('event', 'events')
 }
 
-export const getEventByDate = async (date, token) => {
-    return await getByValue1('event/getByDate', 'events', date, token)
+export const getEventByDate = async (date) => {
+    return await getByValue1('event/getByDate', 'events', date)
 }
 
-export const createEvent = async (bodyData, token) => {
-    return await post(bodyData, 'event', 'id', token)
+export const createEvent = async (bodyData) => {
+    return await post(bodyData, 'event', 'id')
 }
 
-export const updateEvent = async (bodyData, token) => {
-    await put(bodyData, 'event', token)
+export const updateEvent = async (bodyData) => {
+    await put(bodyData, 'event')
 }
 
-export const uploadImageAnimal = async (uri, type, value, token) => {
-    await uploadImage(uri, 'images', type, value, token)
+export const deleteEvent = async (value) => {
+    await deleteByValue('event', value)
 }

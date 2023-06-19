@@ -192,7 +192,7 @@ export default class Ticket extends Component {
                   billTenLast.map((item, index) => (
                     <TouchableOpacity style={styles.containerHis} key={index} onPress={() => navigation.navigate('TicketsPaidScreen', {data: item})}>
                       <View style={styles.viewAvatarHis}>
-                        <Image style={styles.avatarHis} source={{ uri: item.employer[0].avatar_url }} />
+                        <Image style={styles.avatarHis} source={item.employer[0].avatar_url ? require('../../../assets/images/avatar/avatar.png') : { uri: item.employer[0].avatar_url }} />
                       </View>
                       <View style={styles.viewInfoHis}>
                         <Text style={styles.textNameHis}>{item.employer[0].name} {item.employer[0].first_name} </Text>

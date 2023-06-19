@@ -4,6 +4,7 @@ import {Dimensions} from 'react-native';
 import colors from "../../assets/colors/colors";
 
 const screenHeight  = Dimensions.get('screen').height;
+const screenWidth  = Dimensions.get('screen').width;
 
 const styles = StyleSheet.create({
     viewheader: {
@@ -48,11 +49,11 @@ const styles = StyleSheet.create({
         marginTop: '15%',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingHorizontal: '2%'
+        paddingHorizontal: '15%'
     },
     viewItemStaff: {
         height: '100%',
-        width: '30%',
+        width: screenWidth / 3.5,
         justifyContent: 'space-between',
         alignItems: 'center',
         backgroundColor: colors.greenLight,
@@ -68,11 +69,11 @@ const styles = StyleSheet.create({
         borderColor: colors.mainHome
     },
     imgStaff: {
-        height: '55%',
-        width: '80%'
+        height: screenWidth / 7,
+        width: screenWidth / 10
     },
     textItemStaff: {
-        fontSize: 15,
+        fontSize: 17,
         fontWeight: 'bold',
         color: colors.greenDark
     },
@@ -179,7 +180,8 @@ const styles = StyleSheet.create({
     },
     imgFoot: {
         height: '90%',
-        width: '12%'
+        width: '12%',
+        tintColor: colors.mainHome
     },
     textFoot: {
         fontSize: 22,

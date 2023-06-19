@@ -19,6 +19,9 @@ import RegisterScreen from './screens/Other/Staff/RegisterScreen';
 import ManagerStaff from './screens/Other/Staff/ManagerStaff';
 import ManagerUser from './screens/Other/Customer/ManagerUser';
 import InfoProfile from './screens/Other/Staff/InfoProfile';
+import EditUser from './screens/Other/Staff/EditUser';
+import ChangePass from './screens/Other/Staff/ChangePass';
+import RefundVNpay from './screens/Other/Customer/RefundVNpay';
 
 const stack = createNativeStackNavigator();
 
@@ -50,6 +53,9 @@ export default class Main extends Component {
         <stack.Screen name="ManagerStaff" component={ManagerStaff} />
         <stack.Screen name="ManagerUser" component={ManagerUser} />
         <stack.Screen name="InfoProfile" component={InfoProfile} />
+        <stack.Screen name="EditUser" component={EditUser} />
+        <stack.Screen name="ChangePass" component={ChangePass} />
+        <stack.Screen name="RefundVNpay" component={RefundVNpay} />
       </stack.Navigator>
     </NavigationContainer>
     )

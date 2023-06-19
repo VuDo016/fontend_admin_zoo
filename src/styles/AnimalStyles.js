@@ -172,7 +172,16 @@ const styles = StyleSheet.create({
         backgroundColor: colors.mainHome,
         alignItems: 'center',
         justifyContent: 'center',
-        marginVertical: '13%',
+        borderRadius: 10,
+        width: '50%',
+        padding: '2%',
+        marginLeft: '25%'
+    },
+    saveButtonAdd: {
+        backgroundColor: colors.mainHome,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical: '15%',
         borderRadius: 10,
         width: '50%',
         padding: '2%',

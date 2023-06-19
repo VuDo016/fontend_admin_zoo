@@ -7,6 +7,7 @@ export default class PaginationExample extends Component {
     handlePageChange = (page) => {
         const { onPageChange } = this.props;
         if (page >= 1 && page <= 9) {
+            console.log(page)
             onPageChange(page);
         }
     };
