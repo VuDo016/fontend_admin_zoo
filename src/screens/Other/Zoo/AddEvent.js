@@ -115,7 +115,7 @@ export default class AddEvent extends Component {
     return (
       <View style={styles.container}>
         <ScrollView>
-          <TabBack navigation={navigation} title={'cập nhập'} />
+          <TabBack navigation={navigation} title={'thêm mới'} />
           <View>
             <View style={styles.horizontalContainer}>
               {images.map((image, index) => (
