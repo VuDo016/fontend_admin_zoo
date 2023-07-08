@@ -52,6 +52,12 @@ export default class Ticket extends Component {
     return formattedData;
   }
 
+  setTangGiam(number) {
+    let result = true
+    if(number < 0) result = false
+    return result
+  }
+
   render() {
     const { currentDate, statistical, dataChart, billTenLast, isLoading } = this.state;
     const navigation = this.props.navigation;
@@ -59,10 +65,10 @@ export default class Ticket extends Component {
     let info = []
     statistical ?
       info = [
-        { id: '1', title: 'Khách hàng', number: statistical.customerCount, icon: require('../../../assets/images/Ticket/customer.png'), isVolatility: true, volatility: statistical.customerVolatility },
-        { id: '2', title: 'Doanh thu', number: (statistical.totalRevenue / 1000000).toFixed(2) + 'tr', icon: require('../../../assets/images/Ticket/revenue.png'), isVolatility: false, volatility: statistical.revenueVolatility },
-        { id: '3', title: 'Hóa đơn', number: statistical.billCount, icon: require('../../../assets/images/Ticket/bill.png'), isVolatility: true, volatility: statistical.billVolatility },
-        { id: '4', title: 'Vé', number: statistical.ticketCount, icon: require('../../../assets/images/Ticket/ticket.png'), isVolatility: false, volatility: statistical.ticketVolatility }
+        { id: '1', title: 'Khách hàng', number: statistical.customerCount, icon: require('../../../assets/images/Ticket/customer.png'), isVolatility: this.setTangGiam(statistical.customerVolatility), volatility: statistical.customerVolatility },
+        { id: '2', title: 'Doanh thu', number: (statistical.totalRevenue / 1000000).toFixed(2) + 'tr', icon: require('../../../assets/images/Ticket/revenue.png'), isVolatility: this.setTangGiam(statistical.revenueVolatility), volatility: statistical.revenueVolatility },
+        { id: '3', title: 'Hóa đơn', number: statistical.billCount, icon: require('../../../assets/images/Ticket/bill.png'), isVolatility: this.setTangGiam(statistical.billVolatility), volatility: statistical.billVolatility },
+        { id: '4', title: 'Vé', number: statistical.ticketCount, icon: require('../../../assets/images/Ticket/ticket.png'), isVolatility: this.setTangGiam(statistical.ticketVolatility), volatility: statistical.ticketVolatility }
       ]
       :
       info = [
@@ -119,10 +125,10 @@ export default class Ticket extends Component {
               </View>
             </View>
             {
-              item.isVolatility
+              !item.isVolatility
                 ?
                 <View style={styles.viewVol}>
-                  <Text style={[{ color: colors.red }, styles.textVol]}>↑</Text>
+                  <Text style={[{ color: colors.red }, styles.textVol]}>↓</Text>
                   {
                     item.volatility === null ? <Text style={[{ color: colors.red }, styles.textVol1]}> 0%</Text>
                       : <Text style={[{ color: colors.red }, styles.textVol1]}> {item.volatility}%</Text>
@@ -132,7 +138,7 @@ export default class Ticket extends Component {
                 </View>
                 :
                 <View style={styles.viewVol}>
-                  <Text style={[{ color: colors.mainHome }, styles.textVol]}>↓</Text>
+                  <Text style={[{ color: colors.mainHome }, styles.textVol]}>↑</Text>
                   {
                     item.volatility === null ? <Text style={[{ color: colors.mainHome }, styles.textVol1]}> 0%</Text>
                       : <Text style={[{ color: colors.mainHome }, styles.textVol1]}> {item.volatility}%</Text>

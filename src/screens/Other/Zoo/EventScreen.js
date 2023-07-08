@@ -23,9 +23,8 @@ export default class EventScreen extends Component {
   }
 
   async getAllEvent() {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsImVtYWlsIjoidnVkbzQ1NkBnbWFpbC5jb20iLCJpYXQiOjE2ODYxMTYzMDIsImV4cCI6MTY4NjEyNzEwMn0.baFZYgMbd9Ioupkxby-dnFT2oZW8tMD97P3_V4Io4YU'
     try {
-      this.setState({ event: await getAllEvent(token) })
+      this.setState({ event: await getAllEvent() })
     } catch (error) {
       console.log(error);
     } finally {
@@ -38,8 +37,7 @@ export default class EventScreen extends Component {
   }
 
   handleDateChange = async (date) => {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsImVtYWlsIjoidnVkbzQ1NkBnbWFpbC5jb20iLCJpYXQiOjE2ODYxMTYzMDIsImV4cCI6MTY4NjEyNzEwMn0.baFZYgMbd9Ioupkxby-dnFT2oZW8tMD97P3_V4Io4YU'
-    this.setState({ event: await getEventByDate(date, token) })
+    this.setState({ event: await getEventByDate(date) })
   }
 
   render() {
@@ -71,7 +69,9 @@ export default class EventScreen extends Component {
             <TouchableOpacity style={styles.viewList} onPress={() => navigation.navigate('InfoEvent', { data: item })}>
               <Text style={styles.textName1}>#{item.id}</Text>
               <Image style={styles.image} source={{ uri: item.image_url }} />
-              <Text style={styles.textName1}>{item.name}</Text>
+              <View style={styles.viewTextName}>
+                <Text style={styles.textName1}>{item.name}</Text>
+              </View>
               <Image style={styles.image1} source={require('../../../../assets/images/arrowRight.png')} />
             </TouchableOpacity>
           )}

@@ -34,7 +34,8 @@ const styles = StyleSheet.create({
     },
     textTitle: {
         fontSize: 25,
-        marginLeft: 20
+        marginLeft: 20,
+        color: colors.black
     },
     info: {
         flex: 7,
@@ -77,7 +78,8 @@ const styles = StyleSheet.create({
     },
     textTitleInfo: {
         fontSize: 20,
-        fontWeight: "400"
+        fontWeight: "400",
+        color: colors.black
     },
     textClick: {
         fontSize: 20,

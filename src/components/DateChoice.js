@@ -31,7 +31,7 @@ const DateChoice = ({ onDateChange }) => {
       )}
 
       <TouchableOpacity style={styles.button2} onPress={showDatePicker}>
-        <Text style={styles.text}>Chọn ngày</Text>
+        <Text style={{color: 'black'}}>Chọn ngày</Text>
       </TouchableOpacity>
     </View>
   );

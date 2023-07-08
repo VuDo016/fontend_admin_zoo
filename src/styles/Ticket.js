@@ -77,8 +77,9 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     textVol1: {
-        fontSize: 15,
-        marginTop: '3%'
+        fontSize: 13,
+        marginTop: '3%',
+        color: colors.black
     },
     viewFoot: {
         flex: 1,

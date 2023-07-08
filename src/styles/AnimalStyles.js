@@ -40,7 +40,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: '5%'
     },
     textNumber: {
-        fontSize: 18
+        fontSize: 18,
+        color: colors.black
     },
     viewSelec: {
         width: '50%',
@@ -58,7 +59,8 @@ const styles = StyleSheet.create({
         borderWidth: 1.5,
         paddingLeft: '5%',
         borderRadius: 20,
-        fontSize: 17
+        fontSize: 17,
+        color: colors.black
     },
     image: {
         height: screenWidth / 10,
@@ -85,8 +87,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: '5%',
         borderWidth: 1
     },
+    viewTextName: {
+        width: '65%'
+    },
     textName1: {
-
+        color: colors.black
     },
     imageEdit: {
         height: screenWidth / 4,
@@ -132,7 +137,8 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         position: 'absolute',
         left: '40%',
-        paddingLeft: '5%'
+        paddingLeft: '5%',
+        color: colors.black
     },
     inputEdit1: {
         height: '150%',
@@ -141,7 +147,8 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         position: 'absolute',
         left: '40%',
-        paddingLeft: '5%'
+        paddingLeft: '5%',
+        color: colors.black
     },
     inputEdit2: {
         height: '300%',
@@ -151,7 +158,8 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         position: 'absolute',
         left: '40%',
-        paddingLeft: '5%'
+        paddingLeft: '5%',
+        color: colors.black
     },
     addButton: {
         backgroundColor: colors.mainDark,

@@ -128,11 +128,11 @@ export default class AddEvent extends Component {
 
             <View style={styles.viewInputEdit}>
               <DateChoice onDateChange={date => this.handleDateChange('dateStart', date)} />
-              <TextInput style={[styles.inputEdit, { height: '85%' }]} editable={false} value={formatDate(dateStart)} />
+              <TextInput style={[styles.inputEdit, { height: '85%' }]} editable={false} value={ dateStart.length === 0 ? 'Lựa chọn' : formatDate(dateStart)} />
             </View>
             <View style={styles.viewInputEdit}>
               <DateChoice onDateChange={date => this.handleDateChange('dateEnd', date)} />
-              <TextInput style={[styles.inputEdit, { height: '85%' }]} editable={false} value={formatDate(dateEnd)} />
+              <TextInput style={[styles.inputEdit, { height: '85%' }]} editable={false} value={ dateEnd.length === 0 ? 'Lựa chọn' : formatDate(dateEnd)} />
             </View>
 
             <View style={styles.viewInputEdit}>

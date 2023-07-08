@@ -33,12 +33,12 @@ const styles = StyleSheet.create({
         zIndex: 1
     },
     iconClock: {
-        height: '60%',
+        height: '50%',
         width: '20%',
         tintColor: colors.phaneon
     },
     textHead: {
-        fontSize: 22,
+        fontSize: 20,
         fontWeight: 'bold',
         color: colors.text
     },
@@ -49,11 +49,11 @@ const styles = StyleSheet.create({
         marginTop: '15%',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingHorizontal: '15%'
+        paddingHorizontal: '10%'
     },
     viewItemStaff: {
         height: '100%',
-        width: screenWidth / 3.5,
+        width: screenWidth / 3,
         justifyContent: 'space-between',
         alignItems: 'center',
         backgroundColor: colors.greenLight,
@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
         borderColor: colors.mainHome
     },
     imgStaff: {
-        height: screenWidth / 7,
-        width: screenWidth / 10
+        height: screenWidth / 6,
+        width: screenWidth / 7
     },
     textItemStaff: {
         fontSize: 17,
@@ -86,7 +86,8 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: 'bold',
         marginTop: '5%',
-        marginLeft: '2%'
+        marginLeft: '2%',
+        color: colors.black
     },
     viewTitle: {
         height: screenHeight / 9,

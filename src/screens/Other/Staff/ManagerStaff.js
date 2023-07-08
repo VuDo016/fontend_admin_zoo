@@ -64,7 +64,6 @@ export default class ManagerStaff extends Component {
           renderItem={({ item }) => (
             <TouchableOpacity style={styles.viewList} onPress={() => navigation.navigate('InfoProfile', { data: item, title: 'nhân viên' })}>
               <Text style={styles.textName1}>#{item.id}</Text>
-
               <Image style={styles.image} source={ item.avatar_url ? { uri: item.avatar_url } : require('../../../../assets/images/avatar/avatar.png') } />
               <Text style={styles.textName1}>{item.name} {item.first_name}</Text>
               <Image style={styles.image1} source={require('../../../../assets/images/arrowRight.png')} />

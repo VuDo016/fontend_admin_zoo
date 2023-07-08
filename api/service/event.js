@@ -1,4 +1,4 @@
-import { getAll, getByValue1 } from "../method/get";
+import { getAll, getByValue } from "../method/get";
 import { post, uploadImage } from "../method/post";
 import { put } from "../method/put";
 import { deleteByValue } from "../method/delete";
@@ -8,7 +8,7 @@ export const getAllEvent = async() => {
 }
 
 export const getEventByDate = async (date) => {
-    return await getByValue1('event/getByDate', 'events', date)
+    return await getByValue('event/getByDate', 'events', date)
 }
 
 export const createEvent = async (bodyData) => {

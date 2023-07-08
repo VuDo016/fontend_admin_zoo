@@ -99,7 +99,8 @@ const styles = (size) => ({
     paddingVertical: 10,
   },
   optionText: {
-    fontSize: 20
+    fontSize: 20,
+    color: colors.black
   },
   cancelButton: {
     backgroundColor: 'white',

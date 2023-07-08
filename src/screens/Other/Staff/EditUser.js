@@ -172,11 +172,11 @@ export default class EditUser extends Component {
                     </ImageBackground>
                     <View style={styles.viewChoose}>
                         <Text style={styles.textTitleInfo}>Họ</Text>
-                        <TextInput style={styles.textClick} placeholder={data.first_name} onChangeText={text => this.setValue(text, 1)} />
+                        <TextInput style={styles.textClick} placeholderTextColor={'gray'} placeholder={data.first_name} onChangeText={text => this.setValue(text, 1)} />
                     </View>
                     <View style={styles.viewChoose}>
                         <Text style={styles.textTitleInfo}>Tên</Text>
-                        <TextInput style={styles.textClick} placeholder={data.name} onChangeText={text => this.setValue(text, 2)} />
+                        <TextInput style={styles.textClick} placeholderTextColor={'gray'} placeholder={data.name} onChangeText={text => this.setValue(text, 2)} />
                     </View>
                     <View style={styles.viewChoose1}>
                         <Text style={styles.textTitleInfo}>Giới tính</Text>
@@ -205,15 +205,15 @@ export default class EditUser extends Component {
                     </View>
                     <View style={styles.viewChoose}>
                         <Text style={styles.textTitleInfo}>Địa chỉ</Text>
-                        <TextInput style={styles.textClick} placeholder={data.address} onChangeText={text => this.setValue(text, 5)} />
+                        <TextInput style={styles.textClick} placeholderTextColor={'gray'} placeholder={data.address} onChangeText={text => this.setValue(text, 5)} />
                     </View>
                     <View style={styles.viewChoose1}>
                         <Text style={styles.textTitleInfo}>Số điện thoại</Text>
-                        <TextInput style={styles.textClick} placeholder={data.phone === null ? '' : data.phone.toString()} onChangeText={text => this.setValue(text, 6)} />
+                        <TextInput style={styles.textClick} placeholderTextColor={'gray'} placeholder={data.phone === null ? '' : data.phone.toString()} onChangeText={text => this.setValue(text, 6)} />
                     </View>
                     <View style={styles.viewChoose}>
                         <Text style={styles.textTitleInfo}>Email</Text>
-                        <TextInput style={styles.textClick} placeholder={data.email} onChangeText={text => this.setValue(text, 7)} />
+                        <TextInput style={styles.textClick} placeholderTextColor={'gray'} placeholder={data.email} onChangeText={text => this.setValue(text, 7)} />
                     </View>
                 </View>
                 <View style={styles.container2}>

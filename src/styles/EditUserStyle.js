@@ -30,7 +30,8 @@ const styles = StyleSheet.create({
     },
     textTitle: {
         fontSize: 25,
-        marginLeft: 20
+        marginLeft: 20,
+        color: colors.black
     },
     info: {
         backgroundColor: colors.whiteDarkLight
@@ -78,7 +79,8 @@ const styles = StyleSheet.create({
         flex: 1,
         fontSize: 20,
         fontWeight: "400",
-        marginVertical: 10
+        marginVertical: 10,
+        color: colors.black
     },
     textClick: {
         flex: 1,
@@ -86,7 +88,8 @@ const styles = StyleSheet.create({
         color: colors.whiteDark,
         backgroundColor: colors.whiteDarkLight,
         height: '80%',
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        color: colors.black
     },
     textClickDate: {
         flex: 0.7,
@@ -94,7 +97,8 @@ const styles = StyleSheet.create({
         color: colors.whiteDark,
         backgroundColor: colors.whiteDarkLight,
         height: '80%',
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        color: colors.black
     },
     container2: {
         height: 150,

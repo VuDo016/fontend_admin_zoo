@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: 'bold',
         marginBottom: screenHeight * 0.02,
+        color: colors.black
     },
     infoContainer: {
         flexDirection: 'row',
@@ -81,10 +82,12 @@ const styles = StyleSheet.create({
         flex: 1,
         fontWeight: 'bold',
         marginRight: screenWidth * 0.05,
-        fontSize: 20
+        fontSize: 20,
+        color: colors.black
     },
     value: {
         flex: 2,
-        fontSize: 20
+        fontSize: 20,
+        color: colors.black
     },
 });

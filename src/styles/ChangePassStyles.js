@@ -17,7 +17,8 @@ const styles = StyleSheet.create({
     textTitle: {
         marginTop: 42,
         fontSize: 25,
-        marginLeft: 20
+        marginLeft: 20,
+        color: colors.black
     },
     body: {
         marginTop: 10,
@@ -32,14 +33,16 @@ const styles = StyleSheet.create({
         marginVertical: 20
     },
     text: {
-        fontSize: 21
+        fontSize: 21,
+        color: colors.black
     },
     inputText: {
         borderWidth: 1,
         width: '50%',
         height: 40,
         fontSize: 20,
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        color: colors.black
     },
     viewBtn: {
         marginVertical: 20,

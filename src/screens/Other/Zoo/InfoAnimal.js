@@ -45,9 +45,10 @@ export default class InfoAnimal extends Component {
                 area: [animal.area.split('|')[0], animal.area.split('|')[1]],
                 food: [animal.food.split('|')[0], animal.food.split('|')[1]],
                 habitat: [animal.habitat.split('|')[0], animal.habitat.split('|')[1]],
-                description: descrip.map(item => item.split(" | "))
+                description: descrip.map(item => item.split('|'))
             }
         }));
+
         this.setState({ loading: true })
     }
 
@@ -186,10 +187,8 @@ export default class InfoAnimal extends Component {
             name2: animal.name2
         }
 
-        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsImVtYWlsIjoidnVkbzQ1NkBnbWFpbC5jb20iLCJpYXQiOjE2ODYwNTIyNTgsImV4cCI6MTY4NjA1NTg1OH0.afWk0lzQfNS-BeHOmvKeFlr6sMMy9t6HKQy8Uo9iV3g'
-
-        await updateAnimal(data, token)
-        await uploadImageAnimal(images, 'animal', animal.id, token)
+        await updateAnimal(data)
+        await uploadImageAnimal(images, 'animal', animal.id)
         alert('Cập nhập động vật thành công !!!')
         this.props.navigation.goBack()
     }
@@ -197,7 +196,7 @@ export default class InfoAnimal extends Component {
     handleDelete = () => {
         Alert.alert(
             'Xác nhận',
-            'Bạn có chắc chắn muốn xoá sự kiện này không?',
+            'Bạn có chắc chắn muốn xoá động vật này không?',
             [
                 { text: 'Không', style: 'cancel' },
                 { text: 'Có', onPress: this.deleteAnimal },
@@ -217,6 +216,7 @@ export default class InfoAnimal extends Component {
         const { speacies, food, habitat, iucn, animal, images, loading } = this.state;
         const navigation = this.props.navigation
         const uniqueUrls = [...new Set(animal.images)];
+        
         const options = [
             { label: 'Động vật không xương sống', value: 'Động vật không xương sống' },
             { label: 'Cá', value: 'Cá' },
@@ -330,11 +330,11 @@ export default class InfoAnimal extends Component {
                     </View>
                     <View style={styles.viewInputEdit}>
                         <Text style={styles.textInputEdit}>Mô tả</Text>
-                        <TextInput style={styles.inputEdit} onChangeText={text => this.setValue2(text, 0, 0)} placeholder='Nhập tiêu đề' value={animal.description[0][0]} />
+                        <TextInput style={styles.inputEdit} onChangeText={text => this.setValue2(text, 0, 0)} placeholderTextColor={'gray'} placeholder='Nhập tiêu đề' value={animal.description[0][0]} />
                     </View>
                     <View style={[styles.viewInputEdit1, { marginTop: '10%' }]}>
                         <Text style={styles.textInputEdit}></Text>
-                        <TextInput style={styles.inputEdit2} onChangeText={text => this.setValue2(text, 0, 1)} underlineColorAndroid="transparent" numberOfLines={3} multiline={true} placeholder='Nhập chi tiết' value={animal.description[0][1]} />
+                        <TextInput style={styles.inputEdit2} onChangeText={text => this.setValue2(text, 0, 1)} placeholderTextColor={'gray'} underlineColorAndroid="transparent" numberOfLines={3} multiline={true} placeholder='Nhập chi tiết' value={animal.description[0][1]} />
                     </View>
                     {
                         loading ?
@@ -343,11 +343,11 @@ export default class InfoAnimal extends Component {
                                     <View key={index}>
                                         <View style={styles.viewInputEdit}>
                                             <Text style={styles.textInputEdit}></Text>
-                                            <TextInput style={styles.inputEdit} onChangeText={text => this.setValue2(text, index + 1, 0)} placeholder='Nhập tiêu đề' value={item[0]} />
+                                            <TextInput style={styles.inputEdit} onChangeText={text => this.setValue2(text, index + 1, 0)} placeholderTextColor={'gray'} placeholder='Nhập tiêu đề' value={item[0]} />
                                         </View>
                                         <View style={[styles.viewInputEdit1, { marginTop: '10%' }]}>
                                             <Text style={styles.textInputEdit}></Text>
-                                            <TextInput style={styles.inputEdit2} onChangeText={text => this.setValue2(text, index + 1, 1)} underlineColorAndroid="transparent" numberOfLines={3} multiline={true} placeholder='Nhập chi tiết' value={item[1]} />
+                                            <TextInput style={styles.inputEdit2} onChangeText={text => this.setValue2(text, index + 1, 1)} placeholderTextColor={'gray'} underlineColorAndroid="transparent" numberOfLines={3} multiline={true} placeholder='Nhập chi tiết' value={item[1]} />
                                         </View>
                                     </View>
                                 ))

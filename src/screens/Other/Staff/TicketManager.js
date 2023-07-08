@@ -76,8 +76,8 @@ export default class TicketManager extends Component {
                 keyExtractor={({ id }, index) => index}
                 ListHeaderComponent={
                   <View>
-                    <Text>VÉ CÒN HẠN</Text>
-                    <Text>{formatDate(new Date(pageTicket[0].bill.visit_date))}</Text>
+                    <Text style={{color: 'black'}}>VÉ CÒN HẠN</Text>
+                    <Text style={{color: 'black'}}>{formatDate(new Date(pageTicket[0].bill.visit_date))}</Text>
                   </View>
                 }
                 renderItem={({ item, index }) => (
